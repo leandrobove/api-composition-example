@@ -28,20 +28,18 @@ public class EmployeeController {
     @GetMapping("/{employeeId}")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<GetEmployeeDetailsResponse> getEmployeeDetails(@PathVariable("employeeId") String employeeId) throws InterruptedException, ExecutionException {
-
         Employee employee = this.getEmployeeDetailsAsync(employeeId);
 
-        GetEmployeeDetailsResponse responseBody = new GetEmployeeDetailsResponse(
-                employee.getId(),
-                employee.getName(),
-                employee.getPhone(), GetEmployeeDetailsAddressResponse.from(employee)
-        );
+        GetEmployeeDetailsResponse responseBody = GetEmployeeDetailsResponse.from(employee);
 
         return ResponseEntity.ok()
                 .cacheControl(CacheControl.maxAge(Duration.ofMinutes(30)))
                 .body(responseBody);
     }
 
+    /*
+     * Executes http calls in a fork join pool and waits until all requests are completed.
+     */
     private Employee getEmployeeDetailsAsync(final String employeeId) throws ExecutionException, InterruptedException {
         log.info("getEmployeeDetailsAsync Started");
 
