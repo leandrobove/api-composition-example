@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  threads:
+    virtual:
+      enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      minimumNumberOfCalls: 4
+      slidingWindowSize: 8
+      waitDurationInOpenState: 10000
+#  instances:
+#    getNameCB:
+#    getAddressCB:
+#    getPhoneCB:
+
+app:
+  services:
+    nameBaseUrl: http://localhost:8081
+    phoneBaseUrl: http://localhost:8081
+    addressBaseUrl: http://localhost:8081

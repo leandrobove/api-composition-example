@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+
+  employee-service:
+    image: wiremock/wiremock:3.2.0-alpine
+    container_name: employee-service
+    volumes:
+      - ./.docker/wiremock:/home/wiremock
+    ports:
+      - "8081:8080"
