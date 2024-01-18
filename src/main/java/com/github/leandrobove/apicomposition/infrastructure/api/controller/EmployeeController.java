@@ -1,8 +1,8 @@
 package com.github.leandrobove.apicomposition.infrastructure.api.controller;
 
-import com.github.leandrobove.apicomposition.infrastructure.httpclient.GetEmployeeAddressResponse;
-import com.github.leandrobove.apicomposition.domain.entity.Employee;
 import com.github.leandrobove.apicomposition.application.service.EmployeeService;
+import com.github.leandrobove.apicomposition.domain.entity.Employee;
+import com.github.leandrobove.apicomposition.infrastructure.httpclient.GetEmployeeAddressResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.CacheControl;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,6 @@ import java.util.concurrent.ExecutionException;
 @RequestMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
 @Slf4j
 public class EmployeeController {
-
     private final EmployeeService employeeService;
 
     public EmployeeController(final EmployeeService employeeService) {
@@ -41,7 +40,7 @@ public class EmployeeController {
      * Executes http calls in a fork join pool and waits until all requests are completed.
      */
     private Employee getEmployeeDetailsAsync(final String employeeId) throws ExecutionException, InterruptedException {
-        log.info("getEmployeeDetailsAsync Started");
+        log.info("getEmployeeDetailsAsync Started " + Thread.currentThread());
 
         CompletableFuture<GetEmployeeAddressResponse> employeeAddress = employeeService.getAddress(employeeId);
         CompletableFuture<String> employeeName = employeeService.getName(employeeId);
@@ -49,7 +48,7 @@ public class EmployeeController {
 
         // Wait until they are all done
         CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
-        log.info("getEmployeeDetailsAsync Finished");
+        log.info("getEmployeeDetailsAsync Finished " + Thread.currentThread());
 
         var getEmployeeAddressResponse = employeeAddress.get();
 
