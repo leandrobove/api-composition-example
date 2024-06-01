@@ -40,7 +40,7 @@ public class EmployeeController {
      * Executes http calls in a fork join pool and waits until all requests are completed.
      */
     private Employee getEmployeeDetailsAsync(final String employeeId) throws ExecutionException, InterruptedException {
-        log.info("getEmployeeDetailsAsync Started " + Thread.currentThread());
+        log.info("getEmployeeDetailsAsync Started {}", Thread.currentThread());
 
         CompletableFuture<GetEmployeeAddressResponse> employeeAddress = employeeService.getAddress(employeeId);
         CompletableFuture<String> employeeName = employeeService.getName(employeeId);
@@ -48,7 +48,7 @@ public class EmployeeController {
 
         // Wait until they are all done
         CompletableFuture.allOf(employeeAddress, employeeName, employeePhone).join();
-        log.info("getEmployeeDetailsAsync Finished " + Thread.currentThread());
+        log.info("getEmployeeDetailsAsync Finished {}", Thread.currentThread());
 
         var getEmployeeAddressResponse = employeeAddress.get();
 

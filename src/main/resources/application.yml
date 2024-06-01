@@ -1,21 +1,62 @@
 server:
   port: 8080
+  compression:
+    enabled: true
+    mime-types: text/html,text/xml,text/plain,text/css,text/javascript,application/javascript,application/json
+    min-response-size: 1024
 
 spring:
   threads:
     virtual:
       enabled: true
 
+
+management:
+  health:
+    circuitbreakers:
+      enabled: true
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: health
+
 resilience4j.circuitbreaker:
   configs:
     default:
-      minimumNumberOfCalls: 4
+      registerHealthIndicator: true
+      slidingWindowType: COUNT_BASED
       slidingWindowSize: 8
-      waitDurationInOpenState: 10000
-#  instances:
-#    getNameCB:
-#    getAddressCB:
-#    getPhoneCB:
+      minimumNumberOfCalls: 4
+      permittedNumberOfCallsInHalfOpenState: 10
+      waitDurationInOpenState: 10s
+      failureRateThreshold: 50
+      slowCallRateThreshold: 70
+      slowCallDurationThreshold: 2_000
+  instances:
+    getNameCB:
+      baseConfig: default
+    getAddressCB:
+      baseConfig: default
+    getPhoneCB:
+      baseConfig: default
+
+resilience4j.retry:
+  configs:
+    default:
+      maxAttempts: 3
+      waitDuration: 250
+      enableExponentialBackoff: true
+      exponentialBackoffMultiplier: 2
+  instances:
+    name:
+      baseConfig: default
+    address:
+      baseConfig: default
+    phone:
+      baseConfig: default
 
 app:
   services:

@@ -1,26 +1,38 @@
 package com.github.leandrobove.apicomposition.infrastructure.httpclient;
 
-import com.github.leandrobove.apicomposition.application.client.EmployeeDetailsClientInterface;
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import java.util.Objects;
+
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
+
+import com.github.leandrobove.apicomposition.application.client.EmployeeDetailsClientInterface;
+
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
 
 @Service
 public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface {
 
-    private final RestTemplate client;
-
+    private final RestClient restClient;
     private final EmployeeDetailsClientProperties properties;
 
-    public HttpEmployeeDetailsClient(final RestTemplate client, final EmployeeDetailsClientProperties properties) {
-        this.client = client;
-        this.properties = properties;
+    public HttpEmployeeDetailsClient(final RestClient restClient, final EmployeeDetailsClientProperties properties) {
+        this.restClient = Objects.requireNonNull(restClient);
+        this.properties = Objects.requireNonNull(properties);
     }
 
     @Override
     @CircuitBreaker(name = "getNameCB", fallbackMethod = "getNameFallback")
-    public GetEmployeeNameResponse getName(String employeeId) {
-        return client.getForObject(properties.getNameBaseUrl() + "/employees/{employeeId}/name", GetEmployeeNameResponse.class, employeeId);
+    @Retry(name = "name")
+    public GetEmployeeNameResponse getName(final String employeeId) {
+        return this.restClient
+                .get()
+                .uri(properties.getNameBaseUrl() + "/employees/{employeeId}/name", employeeId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .toEntity(GetEmployeeNameResponse.class)
+                .getBody();
     }
 
     private GetEmployeeNameResponse getNameFallback(String employeeId, Throwable e) {
@@ -29,8 +41,15 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
 
     @Override
     @CircuitBreaker(name = "getAddressCB", fallbackMethod = "getAddressFallback")
-    public GetEmployeeAddressResponse getAddress(String employeeId) {
-        return client.getForObject(properties.getAddressBaseUrl() + "/employees/{employeeId}/address", GetEmployeeAddressResponse.class, employeeId);
+    @Retry(name = "address")
+    public GetEmployeeAddressResponse getAddress(final String employeeId) {
+        return this.restClient
+                .get()
+                .uri(properties.getAddressBaseUrl() + "/employees/{employeeId}/address", employeeId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .toEntity(GetEmployeeAddressResponse.class)
+                .getBody();
     }
 
     private GetEmployeeAddressResponse getAddressFallback(String employeeId, Throwable e) {
@@ -39,8 +58,15 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
 
     @Override
     @CircuitBreaker(name = "getPhoneCB", fallbackMethod = "getPhoneFallback")
-    public GetEmployeePhoneResponse getPhone(String employeeId) {
-        return client.getForObject(properties.getPhoneBaseUrl() + "/employees/{employeeId}/phone", GetEmployeePhoneResponse.class, employeeId);
+    @Retry(name = "phone")
+    public GetEmployeePhoneResponse getPhone(final String employeeId) {
+        return this.restClient
+                .get()
+                .uri(properties.getPhoneBaseUrl() + "/employees/{employeeId}/phone", employeeId)
+                .accept(MediaType.APPLICATION_JSON)
+                .retrieve()
+                .toEntity(GetEmployeePhoneResponse.class)
+                .getBody();
     }
 
     private GetEmployeePhoneResponse getPhoneFallback(String employeeId, Throwable e) {
@@ -48,4 +74,3 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
         return new GetEmployeePhoneResponse("");
     }
 }
-

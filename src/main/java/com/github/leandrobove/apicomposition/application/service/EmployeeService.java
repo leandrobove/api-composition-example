@@ -19,7 +19,7 @@ public class EmployeeService {
 
     public CompletableFuture<String> getName(final String employeeId) {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("getName starts in " + Thread.currentThread());
+            log.info("getName starts in {}", Thread.currentThread());
 
             var response = client.getName(employeeId);
 
@@ -31,7 +31,7 @@ public class EmployeeService {
 
     public CompletableFuture<GetEmployeeAddressResponse> getAddress(final String employeeId) {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("getAddress starts in " + Thread.currentThread());
+            log.info("getAddress starts in {}", Thread.currentThread());
 
             var response = client.getAddress(employeeId);
 
@@ -43,7 +43,7 @@ public class EmployeeService {
 
     public CompletableFuture<String> getPhone(final String employeeId) {
         return CompletableFuture.supplyAsync(() -> {
-            log.info("getPhone starts in " + Thread.currentThread());
+            log.info("getPhone starts in {}", Thread.currentThread());
             var response = client.getPhone(employeeId);
             log.info("employeePhoneData completed");
 
