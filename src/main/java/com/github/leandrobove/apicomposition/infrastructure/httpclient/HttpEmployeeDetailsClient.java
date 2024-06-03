@@ -1,16 +1,17 @@
 package com.github.leandrobove.apicomposition.infrastructure.httpclient;
 
-import java.util.Objects;
-
+import com.github.leandrobove.apicomposition.application.client.EmployeeDetailsClientInterface;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
+import io.github.resilience4j.retry.annotation.Retry;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-import com.github.leandrobove.apicomposition.application.client.EmployeeDetailsClientInterface;
+import java.util.Objects;
 
-import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
-import io.github.resilience4j.retry.annotation.Retry;
+import static com.github.leandrobove.apicomposition.infrastructure.config.CacheConfig.*;
 
 @Service
 public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface {
@@ -27,6 +28,7 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
     @CircuitBreaker(name = "getNameCB", fallbackMethod = "getNameFallback")
     @Retry(name = "name", fallbackMethod = "getNameFallback")
     @Bulkhead(name = "name", fallbackMethod = "getNameFallback")
+    @Cacheable(cacheNames = EMPLOYEE_NAME_CACHE, key = "#employeeId")
     public GetEmployeeNameResponse getName(final String employeeId) {
         return this.restClient
                 .get()
@@ -45,6 +47,7 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
     @CircuitBreaker(name = "getAddressCB", fallbackMethod = "getAddressFallback")
     @Retry(name = "address", fallbackMethod = "getAddressFallback")
     @Bulkhead(name = "address", fallbackMethod = "getAddressFallback")
+    @Cacheable(cacheNames = EMPLOYEE_ADDRESS_CACHE, key = "#employeeId")
     public GetEmployeeAddressResponse getAddress(final String employeeId) {
         return this.restClient
                 .get()
@@ -63,6 +66,7 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
     @CircuitBreaker(name = "getPhoneCB", fallbackMethod = "getPhoneFallback")
     @Retry(name = "phone", fallbackMethod = "getPhoneFallback")
     @Bulkhead(name = "phone", fallbackMethod = "getPhoneFallback")
+    @Cacheable(cacheNames = EMPLOYEE_PHONE_CACHE, key = "#employeeId")
     public GetEmployeePhoneResponse getPhone(final String employeeId) {
         return this.restClient
                 .get()

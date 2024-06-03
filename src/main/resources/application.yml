@@ -6,6 +6,9 @@ server:
     min-response-size: 1024
 
 spring:
+  cache:
+    type: ${app.cache.type}
+    cache-names: ${app.cache.names}
   threads:
     virtual:
       enabled: true
@@ -72,6 +75,10 @@ resilience4j.bulkhead:
       baseConfig: default
 
 app:
+  cache:
+    type: simple
+    names: employee-name, employee-address, employee-phone
+
   services:
     nameBaseUrl: http://localhost:8081
     phoneBaseUrl: http://localhost:8081
