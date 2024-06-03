@@ -58,6 +58,19 @@ resilience4j.retry:
     phone:
       baseConfig: default
 
+resilience4j.bulkhead:
+  configs:
+    default:
+      maxConcurrentCalls: 25
+      maxWaitDuration: 100
+  instances:
+    name:
+      baseConfig: default
+    address:
+      baseConfig: default
+    phone:
+      baseConfig: default
+
 app:
   services:
     nameBaseUrl: http://localhost:8081

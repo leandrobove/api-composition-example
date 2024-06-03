@@ -2,6 +2,7 @@ package com.github.leandrobove.apicomposition.infrastructure.httpclient;
 
 import java.util.Objects;
 
+import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
@@ -24,7 +25,8 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
 
     @Override
     @CircuitBreaker(name = "getNameCB", fallbackMethod = "getNameFallback")
-    @Retry(name = "name")
+    @Retry(name = "name", fallbackMethod = "getNameFallback")
+    @Bulkhead(name = "name", fallbackMethod = "getNameFallback")
     public GetEmployeeNameResponse getName(final String employeeId) {
         return this.restClient
                 .get()
@@ -41,7 +43,8 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
 
     @Override
     @CircuitBreaker(name = "getAddressCB", fallbackMethod = "getAddressFallback")
-    @Retry(name = "address")
+    @Retry(name = "address", fallbackMethod = "getAddressFallback")
+    @Bulkhead(name = "address", fallbackMethod = "getAddressFallback")
     public GetEmployeeAddressResponse getAddress(final String employeeId) {
         return this.restClient
                 .get()
@@ -58,7 +61,8 @@ public class HttpEmployeeDetailsClient implements EmployeeDetailsClientInterface
 
     @Override
     @CircuitBreaker(name = "getPhoneCB", fallbackMethod = "getPhoneFallback")
-    @Retry(name = "phone")
+    @Retry(name = "phone", fallbackMethod = "getPhoneFallback")
+    @Bulkhead(name = "phone", fallbackMethod = "getPhoneFallback")
     public GetEmployeePhoneResponse getPhone(final String employeeId) {
         return this.restClient
                 .get()
