@@ -6,6 +6,11 @@ server:
     min-response-size: 1024
 
 spring:
+  redis:
+    host: ${app.redis.host}
+    port: ${app.redis.port}
+#    password: ${app.redis.password}
+
   cache:
     type: ${app.cache.type}
     cache-names: ${app.cache.names}
@@ -76,8 +81,14 @@ resilience4j.bulkhead:
 
 app:
   cache:
-    type: simple
-    names: employee-name, employee-address, employee-phone
+    type: redis
+    names: employee-name,employee-address,employee-phone
+    ttl: 15m
+
+  redis:
+    host: localhost
+    port: 6379
+    password:
 
   http-client:
     employee-name:
