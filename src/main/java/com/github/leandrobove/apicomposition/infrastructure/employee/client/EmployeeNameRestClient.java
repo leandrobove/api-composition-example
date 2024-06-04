@@ -1,7 +1,7 @@
-package com.github.leandrobove.apicomposition.infrastructure.httpclient;
+package com.github.leandrobove.apicomposition.infrastructure.employee.client;
 
-import com.github.leandrobove.apicomposition.application.client.EmployeeNameClient;
 import com.github.leandrobove.apicomposition.infrastructure.config.annotations.EmployeeNameClientQualifier;
+import com.github.leandrobove.apicomposition.infrastructure.employee.models.GetEmployeeNameResponse;
 import com.github.leandrobove.apicomposition.infrastructure.exceptions.EmployeeDetailsNotFoundException;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;

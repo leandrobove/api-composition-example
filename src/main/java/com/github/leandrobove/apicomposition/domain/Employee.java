@@ -1,4 +1,4 @@
-package com.github.leandrobove.apicomposition.domain.entity;
+package com.github.leandrobove.apicomposition.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

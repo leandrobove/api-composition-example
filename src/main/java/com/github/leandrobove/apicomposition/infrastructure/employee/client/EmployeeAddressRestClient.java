@@ -1,7 +1,7 @@
-package com.github.leandrobove.apicomposition.infrastructure.httpclient;
+package com.github.leandrobove.apicomposition.infrastructure.employee.client;
 
-import com.github.leandrobove.apicomposition.application.client.EmployeeAddressClient;
 import com.github.leandrobove.apicomposition.infrastructure.config.annotations.EmployeeAddressClientQualifier;
+import com.github.leandrobove.apicomposition.infrastructure.employee.models.GetEmployeeAddressResponse;
 import com.github.leandrobove.apicomposition.infrastructure.exceptions.EmployeeDetailsNotFoundException;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;

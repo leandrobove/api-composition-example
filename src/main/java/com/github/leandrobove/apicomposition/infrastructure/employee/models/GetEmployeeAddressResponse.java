@@ -1,6 +1,6 @@
-package com.github.leandrobove.apicomposition.infrastructure.httpclient;
+package com.github.leandrobove.apicomposition.infrastructure.employee.models;
 
-import com.github.leandrobove.apicomposition.domain.entity.Address;
+import com.github.leandrobove.apicomposition.domain.Address;
 
 public record GetEmployeeAddressResponse(String street, String number, String zipCode, String city, String country) {
 

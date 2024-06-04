@@ -1,6 +1,6 @@
 package com.github.leandrobove.apicomposition.infrastructure.api.controller;
 
-import com.github.leandrobove.apicomposition.domain.entity.Employee;
+import com.github.leandrobove.apicomposition.domain.Employee;
 
 public record GetEmployeeDetailsAddressResponse(
         String street,

@@ -1,7 +1,7 @@
-package com.github.leandrobove.apicomposition.infrastructure.httpclient;
+package com.github.leandrobove.apicomposition.infrastructure.employee.client;
 
-import com.github.leandrobove.apicomposition.application.client.EmployeePhoneClient;
 import com.github.leandrobove.apicomposition.infrastructure.config.annotations.EmployeePhoneClientQualifier;
+import com.github.leandrobove.apicomposition.infrastructure.employee.models.GetEmployeePhoneResponse;
 import io.github.resilience4j.bulkhead.annotation.Bulkhead;
 import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import io.github.resilience4j.retry.annotation.Retry;
