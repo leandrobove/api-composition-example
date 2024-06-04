@@ -1,4 +1,4 @@
-package com.github.leandrobove.apicomposition.infrastructure.httpclient;
+package com.github.leandrobove.apicomposition.infrastructure.exceptions;
 
 public class EmployeeDetailsNotFoundException extends RuntimeException {
 

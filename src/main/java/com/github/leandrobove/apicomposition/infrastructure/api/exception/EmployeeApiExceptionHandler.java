@@ -1,6 +1,6 @@
 package com.github.leandrobove.apicomposition.infrastructure.api.exception;
 
-import com.github.leandrobove.apicomposition.infrastructure.httpclient.EmployeeDetailsNotFoundException;
+import com.github.leandrobove.apicomposition.infrastructure.exceptions.EmployeeDetailsNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

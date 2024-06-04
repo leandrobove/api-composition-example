@@ -39,11 +39,11 @@ resilience4j.circuitbreaker:
       slowCallRateThreshold: 70
       slowCallDurationThreshold: 2_000
   instances:
-    getNameCB:
+    employee-name:
       baseConfig: default
-    getAddressCB:
+    employee-address:
       baseConfig: default
-    getPhoneCB:
+    employee-phone:
       baseConfig: default
 
 resilience4j.retry:
@@ -54,11 +54,11 @@ resilience4j.retry:
       enableExponentialBackoff: true
       exponentialBackoffMultiplier: 2
   instances:
-    name:
+    employee-name:
       baseConfig: default
-    address:
+    employee-address:
       baseConfig: default
-    phone:
+    employee-phone:
       baseConfig: default
 
 resilience4j.bulkhead:
@@ -67,11 +67,11 @@ resilience4j.bulkhead:
       maxConcurrentCalls: 25
       maxWaitDuration: 100
   instances:
-    name:
+    employee-name:
       baseConfig: default
-    address:
+    employee-address:
       baseConfig: default
-    phone:
+    employee-phone:
       baseConfig: default
 
 app:
@@ -79,7 +79,13 @@ app:
     type: simple
     names: employee-name, employee-address, employee-phone
 
-  services:
-    nameBaseUrl: http://localhost:8081
-    phoneBaseUrl: http://localhost:8081
-    addressBaseUrl: http://localhost:8081
+  http-client:
+    employee-name:
+      baseUrl: http://localhost:8081
+      readTimeout: 2s
+    employee-address:
+      baseUrl: http://localhost:8081
+      readTimeout: 2s
+    employee-phone:
+      baseUrl: http://localhost:8081
+      readTimeout: 2s
