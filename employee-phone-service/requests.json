@@ -1,0 +1,21 @@
+{
+  "mappings": [
+    {
+      "id": "c4f5a97c-c9ee-4bf1-bce5-e0128f0a2b5b",
+      "request": {
+        "method": "GET",
+        "url": "/employees/c4f5a97c-c9ee-4bf1-bce5-e0128f0a2b5b/phone"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "phone": "+55 (00) 00000-0000"
+        },
+        "fixedDelayMilliseconds": 800
+      }
+    }
+  ]
+}

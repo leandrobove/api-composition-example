@@ -2,13 +2,29 @@ version: "3.9"
 
 services:
 
-  employee-service:
+  employee-address-service:
     image: wiremock/wiremock:3.2.0-alpine
-    container_name: employee-service
+    container_name: employee-address-service
     volumes:
-      - ./.docker/wiremock:/home/wiremock
+      - ./employee-address-service/requests.json:/home/wiremock/mappings/requests.json
     ports:
       - "8081:8080"
+
+  employee-phone-service:
+    image: wiremock/wiremock:3.2.0-alpine
+    container_name: employee-phone-service
+    volumes:
+      - ./employee-phone-service/requests.json:/home/wiremock/mappings/requests.json
+    ports:
+      - "8082:8080"
+
+  employee-name-service:
+    image: wiremock/wiremock:3.2.0-alpine
+    container_name: employee-name-service
+    volumes:
+      - ./employee-name-service/requests.json:/home/wiremock/mappings/requests.json
+    ports:
+      - "8083:8080"
 
   redis-cache:
     image: redis:7-alpine

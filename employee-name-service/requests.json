@@ -1,0 +1,21 @@
+{
+  "mappings": [
+    {
+      "id": "b59898e3-d4de-4620-adb2-e38acbb27a62",
+      "request": {
+        "method": "GET",
+        "url": "/employees/c4f5a97c-c9ee-4bf1-bce5-e0128f0a2b5b/name"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "name": "John Doe"
+        },
+        "fixedDelayMilliseconds": 1000
+      }
+    }
+  ]
+}

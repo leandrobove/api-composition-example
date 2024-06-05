@@ -1,0 +1,25 @@
+{
+  "mappings": [
+    {
+      "id": "b59898e3-d4de-4620-adb2-e38acbb27a60",
+      "request": {
+        "method": "GET",
+        "url": "/employees/c4f5a97c-c9ee-4bf1-bce5-e0128f0a2b5b/address"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+          "Content-Type": "application/json"
+        },
+        "jsonBody": {
+          "street": "Street 01 NY",
+          "number": "1999",
+          "zipCode": "000200-000",
+          "city": "New York",
+          "country": "US"
+        },
+        "fixedDelayMilliseconds": 1500
+      }
+    }
+  ]
+}

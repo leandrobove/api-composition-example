@@ -93,11 +93,11 @@ app:
 
   http-client:
     employee-name:
-      baseUrl: http://localhost:8081
+      baseUrl: http://localhost:8083
       readTimeout: 2s
     employee-address:
       baseUrl: http://localhost:8081
       readTimeout: 2s
     employee-phone:
-      baseUrl: http://localhost:8081
+      baseUrl: http://localhost:8082
       readTimeout: 2s
