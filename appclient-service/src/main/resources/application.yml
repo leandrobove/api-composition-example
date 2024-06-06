@@ -6,10 +6,11 @@ server:
     min-response-size: 1024
 
 spring:
-  redis:
-    host: ${app.redis.host}
-    port: ${app.redis.port}
-#    password: ${app.redis.password}
+  data:
+    redis:
+      host: ${app.redis.host}
+      port: ${app.redis.port}
+      password: ${app.redis.password}
 
   cache:
     type: ${app.cache.type}
@@ -84,20 +85,20 @@ app:
   cache:
     type: redis
     names: employee-name,employee-address,employee-phone
-    ttl: 15m
+    ttl: ${REDIS_CACHE_TTL:15m}
 
   redis:
-    host: localhost
-    port: 6379
+    host: ${REDIS_HOST:localhost}
+    port: ${REDIS_PORT:6379}
     password:
 
   http-client:
     employee-name:
-      baseUrl: http://localhost:8083
-      readTimeout: 2s
+      baseUrl: ${EMPLOYEE_NAME_BASEURL:http://localhost:8083}
+      readTimeout: ${EMPLOYEE_NAME_TIMEOUT:2s}
     employee-address:
-      baseUrl: http://localhost:8081
-      readTimeout: 2s
+      baseUrl: ${EMPLOYEE_ADDRESS_BASEURL:http://localhost:8081}
+      readTimeout: ${EMPLOYEE_ADDRESS_TIMEOUT:2s}
     employee-phone:
-      baseUrl: http://localhost:8082
-      readTimeout: 2s
+      baseUrl: ${EMPLOYEE_PHONE_BASEURL:http://localhost:8082}
+      readTimeout: ${EMPLOYEE_PHONE_TIMEOUT:2s}

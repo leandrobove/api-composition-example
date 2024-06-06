@@ -2,6 +2,21 @@ version: "3.9"
 
 services:
 
+  appclient-service:
+    container_name: appclient-service
+    build:
+      context: ./appclient-service
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    env_file:
+      - .env.example
+    ports:
+      - "8080:8080"
+    depends_on:
+      - redis-cache
+    networks:
+      - app_example_network
+
   employee-address-service:
     image: wiremock/wiremock:3.2.0-alpine
     container_name: employee-address-service
