@@ -1,8 +1,12 @@
 package com.github.leandrobove.apicomposition.infrastructure.config.properties;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.InitializingBean;
+
 import java.time.Duration;
 
-public class RestClientProperties {
+@Slf4j
+public class RestClientProperties implements InitializingBean {
 
     private String baseUrl;
     private Duration readTimeout;
@@ -21,5 +25,18 @@ public class RestClientProperties {
 
     public void setReadTimeout(Duration readTimeout) {
         this.readTimeout = readTimeout;
+    }
+
+    @Override
+    public String toString() {
+        return "RestClientProperties{" +
+                "baseUrl='" + baseUrl + '\'' +
+                ", readTimeout=" + readTimeout +
+                '}';
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        log.info(toString());
     }
 }
