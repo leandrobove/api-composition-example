@@ -25,13 +25,18 @@ management:
   health:
     circuitbreakers:
       enabled: true
+    livenessState:
+      enabled: true
+    readinessState:
+      enabled: true
   endpoint:
     health:
       show-details: always
+      probes.enabled: true
   endpoints:
     web:
       exposure:
-        include: health
+        include: health, metrics
 
 resilience4j.circuitbreaker:
   configs:
