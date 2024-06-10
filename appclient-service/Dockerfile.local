@@ -1,0 +1,19 @@
+# build stage
+FROM maven:3.9.7-eclipse-temurin-21-alpine AS builder
+
+WORKDIR /usr/app
+
+COPY pom.xml .
+COPY ./src ./src
+
+RUN mvn clean install
+
+# run application from builder
+FROM eclipse-temurin:21.0.3_9-jre-alpine
+
+COPY --from=builder /usr/app/target/*.jar /opt/app/application.jar
+
+RUN addgroup -S spring && adduser -S spring -G spring
+USER spring:spring
+
+CMD java -jar /opt/app/application.jar

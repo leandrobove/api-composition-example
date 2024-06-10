@@ -6,7 +6,7 @@ services:
     container_name: appclient-service
     build:
       context: ./appclient-service
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.local
     restart: unless-stopped
     env_file:
       - .env.example
