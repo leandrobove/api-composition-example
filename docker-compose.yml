@@ -36,7 +36,8 @@ services:
     image: redis:7-alpine
     container_name: redis-cache
     restart: always
-#    command: redis-server --requirepass password
+    environment:
+      REDIS_ARGS: "--requirepass password"
     ports:
       - "6379:6379"
     networks:

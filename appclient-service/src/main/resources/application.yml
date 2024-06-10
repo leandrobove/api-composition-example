@@ -10,6 +10,8 @@ spring:
     redis:
       host: ${app.redis.host}
       port: ${app.redis.port}
+      database: 0
+      username: ${app.redis.username}
       password: ${app.redis.password}
 
   cache:
@@ -95,7 +97,9 @@ app:
   redis:
     host: ${REDIS_HOST:localhost}
     port: ${REDIS_PORT:6379}
-    password:
+    username: ${REDIS_USERNAME:default}
+    password: ${REDIS_PASSWORD:password}
+
 
   http-client:
     employee-name:

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.time.Duration;
 import java.util.Objects;
-import java.util.concurrent.ExecutionException;
 
 @RestController
 @RequestMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -25,8 +24,7 @@ public class EmployeeController {
     }
 
     @GetMapping("/{employeeId}")
-    public ResponseEntity<GetEmployeeDetailsResponse> getEmployeeDetails(@PathVariable("employeeId") final String employeeId)
-            throws InterruptedException, ExecutionException {
+    public ResponseEntity<GetEmployeeDetailsResponse> getEmployeeDetails(@PathVariable("employeeId") final String employeeId) {
 
         Employee employee = employeeService.findById(employeeId);
 
