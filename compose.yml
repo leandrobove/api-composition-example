@@ -16,6 +16,8 @@ services:
       - redis-cache
     networks:
       - app_example_network
+    profiles:
+      - local
 
   employee-address-service:
     image: wiremock/wiremock:3.2.0-alpine
