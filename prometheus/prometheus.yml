@@ -52,6 +52,7 @@ scrape_configs:
     enable_http2: true
     static_configs:
       - targets:
+#          - host.docker.internal:8080
           - appclient-service:8080
         labels:
           application: appclient-service application
