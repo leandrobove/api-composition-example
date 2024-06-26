@@ -9,7 +9,7 @@ services:
       dockerfile: Dockerfile.local
     restart: unless-stopped
     env_file:
-      - .env.example
+      - ./appclient-service/.env.example
     ports:
       - "8080:8080"
     depends_on:
